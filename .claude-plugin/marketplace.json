@@ -1,0 +1,9 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "akallabet-cc-marketplace",
+  "description": "A community Claude Code plugin marketplace by akallabet",
+  "owner": {
+    "name": "akallabet"
+  },
+  "plugins": []
+}
