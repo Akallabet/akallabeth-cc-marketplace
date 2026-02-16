@@ -1,0 +1,11 @@
+{
+  "name": "coding",
+  "version": "1.0.0",
+  "description": "General coding utilities for code explanation, review, refactoring, testing, and debugging",
+  "author": {
+    "name": "Graziano Statello",
+    "email": "admin@grazianostatello.dev"
+  },
+  "keywords": ["coding", "development", "refactor", "testing", "debugging", "code-review"],
+  "license": "MIT"
+}
