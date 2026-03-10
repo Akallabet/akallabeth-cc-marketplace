@@ -9,7 +9,6 @@
   "plugins": [
     {
       "name": "coding-external",
-      "source": "plugins/coding-external",
       "version": "1.0.0",
       "description": "General coding utilities for code explanation, review, refactoring, testing, and debugging",
       "keywords": [
