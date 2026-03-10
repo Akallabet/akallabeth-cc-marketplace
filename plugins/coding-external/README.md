@@ -1,5 +1,7 @@
 # Coding Plugin
 
+> **Disclaimer**: I am not the developer of the underlying skills, agents, or tools within this plugin. I have simply packaged them for ease of use. Please refer to the original creators for attribution, support, and contributions.
+
 A comprehensive suite of AI-powered coding utilities for Claude Code. This plugin provides five specialized skills to help you explain, review, refactor, test, and debug your code with expert-level guidance.
 
 ## Overview
