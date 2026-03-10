@@ -12,7 +12,6 @@
       "source": "plugins/coding-external",
       "version": "1.0.0",
       "description": "General coding utilities for code explanation, review, refactoring, testing, and debugging",
-      "disclaimer": "I did not create the skills, agents, and tools in this plugin. I am simply packaging them for use in Claude Code. Please refer to the original sources for more information.",
       "keywords": [
         "coding",
         "development",
@@ -20,21 +19,7 @@
         "testing",
         "debugging",
         "code-review"
-      ],
-      "skills": {
-        "code-review-excellence": "",
-        "documentation": "https://github.com/mcollina/skills/tree/main/skills/documentation",
-        "e2e-testing-patterns": "",
-        "error-handling-patterns": "",
-        "fastify": "https://github.com/mcollina/skills/tree/main/skills/fastify",
-        "init": "https://github.com/mcollina/skills/tree/main/skills/init",
-        "node": "https://github.com/mcollina/skills/tree/main/skills/node",
-        "oauth": "https://github.com/mcollina/skills/tree/main/skills/oauth",
-        "octocat": "https://github.com/mcollina/skills/tree/main/skills/octocat",
-        "react-best-practices": "https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices",
-        "react-composition-patterns": "https://github.com/vercel-labs/agent-skills/tree/main/skills/react-composition-patterns",
-        "typescript-magician": "https://github.com/mcollina/skills/tree/main/skills/octocat"
-      }
+      ]
     }
   ]
 }

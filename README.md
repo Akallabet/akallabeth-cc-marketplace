@@ -22,6 +22,12 @@ claude plugin marketplace search --marketplace akallabet-cc-marketplace
 claude plugin install <plugin-name> --marketplace akallabet-cc-marketplace
 ```
 
+## Plugins
+
+### coding-external
+
+> **Disclaimer**: The `coding-external` plugin is a curated collection of skills, agents, hooks, and tools copied from various external open-source projects. The original author of this marketplace is not the author of those components. Each component's source is tracked in [`plugins/coding-external/origins.json`](./plugins/coding-external/origins.json). Please refer to the original creators for attribution, support, and contributions.
+
 ## Adding a plugin
 
 1. Create a new directory under `plugins/` with your plugin name
