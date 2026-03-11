@@ -1,0 +1,28 @@
+{
+  "name": "akallabet-cc-marketplace",
+  "version": "1.0.0",
+  "description": "my own claude clode marketplace",
+  "keywords": [
+    "claude-code",
+    "marketplace"
+  ],
+  "homepage": "https://github.com/Akallabet/akallabeth-cc-marketplace#readme",
+  "bugs": {
+    "url": "https://github.com/Akallabet/akallabeth-cc-marketplace/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akallabet/akallabeth-cc-marketplace.git"
+  },
+  "license": "MIT",
+  "author": "Graziano Statello",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "claude plugin validate .",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
