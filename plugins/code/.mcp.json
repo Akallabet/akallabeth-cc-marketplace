@@ -43,6 +43,9 @@
         "-y",
         "@modelcontextprotocol/server-puppeteer"
       ]
+    },
+    "storybook": {
+      "url": "http://localhost:6006/mcp"
     }
   }
 }
