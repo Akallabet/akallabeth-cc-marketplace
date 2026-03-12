@@ -1,0 +1,14 @@
+{
+  "name": "akallabet-documentation",
+  "version": "1.0.0",
+  "description": "Utilities for generating and improving documentation, including docstrings, README files, and API documentation",
+  "author": {
+    "name": "Graziano Statello",
+    "email": "admin@grazianostatello.dev"
+  },
+  "keywords": [
+    "development",
+    "documentation",
+  ],
+  "license": "MIT"
+}

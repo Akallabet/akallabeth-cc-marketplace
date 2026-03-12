@@ -11,8 +11,8 @@
   },
   "plugins": [
     {
-      "name": "coding-external",
-      "source": "./plugins/coding-external",
+      "name": "code",
+      "source": "./plugins/code",
       "version": "1.0.0",
       "description": "General coding utilities for code explanation, review, refactoring, testing, and debugging",
       "keywords": [
@@ -22,6 +22,15 @@
         "testing",
         "debugging",
         "code-review"
+      ]
+    },
+    {
+      "name": "documentation",
+      "source": "./plugins/documentation",
+      "version": "1.0.0",
+      "description": "Utilities for generating and improving documentation, including docstrings, README files, and API documentation",
+      "keywords": [
+        "documentation"
       ]
     }
   ]

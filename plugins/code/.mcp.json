@@ -17,7 +17,7 @@
         "@modelcontextprotocol/server-postgres"
       ],
       "env": {
-        "POSTGRES_CONNECTION_STRING": "postgres://akallabeth:abcde@localhost:5432/ace"
+        "POSTGRES_CONNECTION_STRING": "${POSTGRES_CONNECTION_STRING}"
       }
     },
     "github": {
