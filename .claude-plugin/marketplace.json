@@ -1,18 +1,16 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "akallabet-cc-marketplace",
-  "description": "A community Claude Code plugin marketplace by akallabet",
   "metadata": {
-    "description": "A community Claude Code plugin marketplace by akallabet"
+    "description": "Claude Code plugin marketplace by akallabet"
   },
   "owner": {
     "name": "Graziano Statello",
-    "email": "admin.grazianostatello.dev"
+    "email": "admin@grazianostatello.dev"
   },
   "plugins": [
     {
-      "name": "code",
-      "source": "./plugins/code",
+      "name": "ak-coding",
+      "source": "./plugins/ak-coding",
       "version": "1.0.0",
       "description": "General coding utilities for code explanation, review, refactoring, testing, and debugging",
       "keywords": [
@@ -25,8 +23,8 @@
       ]
     },
     {
-      "name": "documentation",
-      "source": "./plugins/documentation",
+      "name": "ak-documentation",
+      "source": "./plugins/ak-documentation",
       "version": "1.0.0",
       "description": "Utilities for generating and improving documentation, including docstrings, README files, and API documentation",
       "keywords": [
