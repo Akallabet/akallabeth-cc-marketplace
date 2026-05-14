@@ -1,6 +1,14 @@
 {
   "skills": {
-    "documentation": "https://github.com/mcollina/skills/tree/main/skills/documentation",
-    "init": "https://github.com/mcollina/skills/tree/main/skills/init"
-  }
+    "documentation": {
+      "url": "https://github.com/mcollina/skills/tree/main/skills/documentation",
+      "commit": "3e2ffbb90fda9e31d84011c765252b00bfc2d4d6"
+    },
+    "init": {
+      "url": "https://github.com/mcollina/skills/tree/main/skills/init",
+      "commit": "3e2ffbb90fda9e31d84011c765252b00bfc2d4d6"
+    }
+  },
+  "agents": {},
+  "commands": {}
 }

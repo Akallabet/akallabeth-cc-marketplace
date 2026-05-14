@@ -1,9 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --env-file .env
+console.log('Starting plugin component import...', process.env);
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { fetchGitHubDir } from './lib/github.ts';
-import { readOrigins, type ComponentType } from './lib/origins.ts';
+import { fetchGitHubDir, fetchLatestCommit } from './lib/github.ts';
+import { readOrigins, addOrigin, type ComponentType } from './lib/origins.ts';
 import { listPlugins } from './lib/plugins.ts';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,6 +16,7 @@ async function main(): Promise<void> {
   console.log('\nPlugin Component Updater\n');
   const plugins = await listPlugins(REPO_ROOT);
   let updated = 0;
+  let upToDate = 0;
   let skipped = 0;
   let errors = 0;
 
@@ -22,15 +24,24 @@ async function main(): Promise<void> {
     const origins = await readOrigins(plugin.dir);
 
     for (const type of TYPES) {
-      for (const [name, url] of Object.entries(origins[type])) {
-        if (!url) {
+      for (const [name, entry] of Object.entries(origins[type])) {
+        if (!entry.url) {
           skipped++;
           continue;
         }
 
-        process.stdout.write(`  Updating ${plugin.name}/${type}/${name}... `);
+        process.stdout.write(`  Checking ${plugin.name}/${type}/${name}... `);
         try {
-          const files = await fetchGitHubDir(url);
+          const latestCommit = await fetchLatestCommit(entry.url);
+
+          if (latestCommit === entry.commit) {
+            console.log(`up to date (${latestCommit.slice(0, 7)})`);
+            upToDate++;
+            continue;
+          }
+
+          process.stdout.write(`updating... `);
+          const files = await fetchGitHubDir(entry.url);
           const destDir = join(plugin.dir, type, name);
 
           for (const file of files) {
@@ -39,7 +50,8 @@ async function main(): Promise<void> {
             await writeFile(dest, file.content, 'utf8');
           }
 
-          console.log(`${files.length} file(s) updated`);
+          await addOrigin(plugin.dir, type, name, entry.url);
+          console.log(`${files.length} file(s) updated (${latestCommit.slice(0, 7)})`);
           updated++;
         } catch (err) {
           console.log(`ERROR: ${(err as Error).message}`);
@@ -50,7 +62,7 @@ async function main(): Promise<void> {
   }
 
   console.log(
-    `\nSummary: ${updated} updated, ${skipped} skipped (no URL), ${errors} error(s)`,
+    `\nSummary: ${updated} updated, ${upToDate} up to date, ${skipped} skipped (no URL), ${errors} error(s)`,
   );
   if (errors > 0) process.exit(1);
 }

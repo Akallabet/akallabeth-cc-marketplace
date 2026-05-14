@@ -1,5 +1,3 @@
-import https from 'node:https';
-
 export interface GitHubRef {
   owner: string;
   repo: string;
@@ -20,31 +18,18 @@ export function parseGitHubUrl(url: string): GitHubRef {
   return { owner: match[1], repo: match[2], branch: match[3], path: match[4] };
 }
 
-function httpGet(url: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const headers: Record<string, string> = {
-      'User-Agent': 'plugin-sync/1.0',
-      Accept: 'application/vnd.github.v3+json',
-    };
-    if (process.env.GITHUB_TOKEN) {
-      headers['Authorization'] = `Bearer ${process.env.GITHUB_TOKEN}`;
-    }
-    const req = https.get(url, { headers }, (res) => {
-      if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        httpGet(res.headers.location).then(resolve, reject);
-        return;
-      }
-      if (res.statusCode !== 200) {
-        reject(new Error(`HTTP ${res.statusCode} fetching ${url}`));
-        return;
-      }
-      const chunks: Buffer[] = [];
-      res.on('data', (chunk: Buffer) => chunks.push(chunk));
-      res.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-      res.on('error', reject);
-    });
-    req.on('error', reject);
-  });
+async function httpGet(url: string): Promise<string> {
+  const headers: Record<string, string> = {
+    'User-Agent': 'plugin-sync/1.0',
+    Accept: 'application/vnd.github.v3+json',
+  };
+  if (process.env.GITHUB_TOKEN_API) {
+    console.log('Using GITHUB_TOKEN_API for authenticated requests');
+    headers['Authorization'] = `Bearer ${process.env.GITHUB_TOKEN_API}`;
+  }
+  const res = await fetch(url, { headers });
+  if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
+  return res.text();
 }
 
 interface GHEntry {
@@ -76,4 +61,13 @@ async function fetchDir(ref: GitHubRef, dirPath: string, fetch: FetchFn): Promis
 export async function fetchGitHubDir(url: string, fetch: FetchFn = httpGet): Promise<GitHubFile[]> {
   const ref = parseGitHubUrl(url);
   return fetchDir(ref, ref.path, fetch);
+}
+
+export async function fetchLatestCommit(url: string, fetch: FetchFn = httpGet): Promise<string> {
+  const ref = parseGitHubUrl(url);
+  const apiUrl = `https://api.github.com/repos/${ref.owner}/${ref.repo}/commits?path=${ref.path}&sha=${ref.branch}&per_page=1`;
+  const body = await fetch(apiUrl);
+  const commits = JSON.parse(body) as Array<{ sha: string }>;
+  if (!commits.length) throw new Error(`No commits found for path ${ref.path}`);
+  return commits[0].sha;
 }

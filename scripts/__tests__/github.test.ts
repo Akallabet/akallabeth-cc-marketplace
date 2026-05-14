@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseGitHubUrl, fetchGitHubDir, type FetchFn } from '../lib/github.ts';
+import { parseGitHubUrl, fetchGitHubDir, fetchLatestCommit, type FetchFn } from '../lib/github.ts';
 
 describe('parseGitHubUrl', () => {
   it('parses a valid GitHub tree URL', () => {
@@ -108,5 +108,32 @@ describe('fetchGitHubDir', () => {
       mockFetch,
     );
     assert.equal(files.length, 0);
+  });
+});
+
+describe('fetchLatestCommit', () => {
+  it('returns the sha of the latest commit for a path', async () => {
+    const mockFetch: FetchFn = async (url) => {
+      assert.ok(url.includes('api.github.com/repos/mcollina/skills/commits'));
+      assert.ok(url.includes('path=skills/fastify'));
+      assert.ok(url.includes('sha=main'));
+      assert.ok(url.includes('per_page=1'));
+      return JSON.stringify([{ sha: 'abc123def456abc123def456abc123def456abc1' }]);
+    };
+
+    const sha = await fetchLatestCommit(
+      'https://github.com/mcollina/skills/tree/main/skills/fastify',
+      mockFetch,
+    );
+    assert.equal(sha, 'abc123def456abc123def456abc123def456abc1');
+  });
+
+  it('throws when no commits are found', async () => {
+    const mockFetch: FetchFn = async () => JSON.stringify([]);
+
+    await assert.rejects(
+      () => fetchLatestCommit('https://github.com/owner/repo/tree/main/path', mockFetch),
+      /No commits found/,
+    );
   });
 });

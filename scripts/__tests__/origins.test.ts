@@ -21,15 +21,35 @@ describe('readOrigins', () => {
     assert.deepEqual(origins, { skills: {}, agents: {}, commands: {} });
   });
 
-  it('reads an existing origins.json', async () => {
-    const data = { skills: { fastify: 'https://github.com/mcollina/skills/tree/main/skills/fastify' }, agents: {}, commands: {} };
+  it('reads an existing origins.json with OriginEntry values', async () => {
+    const data = {
+      skills: { fastify: { url: 'https://github.com/mcollina/skills/tree/main/skills/fastify', commit: 'abc123' } },
+      agents: {},
+      commands: {},
+    };
     await writeOrigins(dir, data);
     const origins = await readOrigins(dir);
     assert.deepEqual(origins, data);
   });
 
+  it('normalizes legacy plain-string values to OriginEntry', async () => {
+    await writeFile(
+      join(dir, 'origins.json'),
+      JSON.stringify({ skills: { fastify: 'https://github.com/mcollina/skills/tree/main/skills/fastify' } }),
+      'utf8',
+    );
+    const origins = await readOrigins(dir);
+    assert.deepEqual(origins.skills['fastify'], { url: 'https://github.com/mcollina/skills/tree/main/skills/fastify' });
+    assert.deepEqual(origins.agents, {});
+    assert.deepEqual(origins.commands, {});
+  });
+
   it('fills in missing type keys with empty objects', async () => {
-    await writeFile(join(dir, 'origins.json'), JSON.stringify({ skills: { fastify: '' } }), 'utf8');
+    await writeFile(
+      join(dir, 'origins.json'),
+      JSON.stringify({ skills: { fastify: { url: '' } } }),
+      'utf8',
+    );
     const origins = await readOrigins(dir);
     assert.deepEqual(origins.agents, {});
     assert.deepEqual(origins.commands, {});
@@ -47,30 +67,21 @@ describe('addOrigin', () => {
     await rm(dir, { recursive: true });
   });
 
-  it('adds a new skill entry when file does not exist', async () => {
-    await addOrigin(dir, 'skills', 'fastify', 'https://github.com/mcollina/skills/tree/main/skills/fastify');
+  it('adds a local entry (empty url) without fetching a commit', async () => {
+    await addOrigin(dir, 'skills', 'local-skill', '');
     const origins = await readOrigins(dir);
-    assert.equal(origins.skills['fastify'], 'https://github.com/mcollina/skills/tree/main/skills/fastify');
-  });
-
-  it('adds an agent entry', async () => {
-    await addOrigin(dir, 'agents', 'my-agent', 'https://github.com/org/repo/tree/main/agents/my-agent');
-    const origins = await readOrigins(dir);
-    assert.equal(origins.agents['my-agent'], 'https://github.com/org/repo/tree/main/agents/my-agent');
+    assert.deepEqual(origins.skills['local-skill'], { url: '' });
   });
 
   it('merges with existing entries without overwriting others', async () => {
-    await writeOrigins(dir, { skills: { existing: 'https://existing' }, agents: {}, commands: {} });
-    await addOrigin(dir, 'skills', 'new-skill', 'https://new');
+    await writeOrigins(dir, {
+      skills: { existing: { url: 'https://existing', commit: 'aaa' } },
+      agents: {},
+      commands: {},
+    });
+    await addOrigin(dir, 'skills', 'local-new', '');
     const origins = await readOrigins(dir);
-    assert.equal(origins.skills['existing'], 'https://existing');
-    assert.equal(origins.skills['new-skill'], 'https://new');
-  });
-
-  it('overwrites an existing entry with the same name', async () => {
-    await addOrigin(dir, 'skills', 'fastify', 'https://old');
-    await addOrigin(dir, 'skills', 'fastify', 'https://new');
-    const origins = await readOrigins(dir);
-    assert.equal(origins.skills['fastify'], 'https://new');
+    assert.deepEqual(origins.skills['existing'], { url: 'https://existing', commit: 'aaa' });
+    assert.deepEqual(origins.skills['local-new'], { url: '' });
   });
 });

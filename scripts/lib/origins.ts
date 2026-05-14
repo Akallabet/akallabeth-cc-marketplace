@@ -1,23 +1,41 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fetchLatestCommit } from './github.ts';
 
 export type ComponentType = 'skills' | 'agents' | 'commands';
 
+export interface OriginEntry {
+  url: string;
+  commit?: string;
+}
+
 export interface Origins {
-  skills: Record<string, string>;
-  agents: Record<string, string>;
-  commands: Record<string, string>;
+  skills: Record<string, OriginEntry>;
+  agents: Record<string, OriginEntry>;
+  commands: Record<string, OriginEntry>;
+}
+
+function normalizeEntries(raw: Record<string, unknown>): Record<string, OriginEntry> {
+  const out: Record<string, OriginEntry> = {};
+  for (const [name, value] of Object.entries(raw)) {
+    if (typeof value === 'string') {
+      out[name] = { url: value };
+    } else {
+      out[name] = value as OriginEntry;
+    }
+  }
+  return out;
 }
 
 export async function readOrigins(pluginDir: string): Promise<Origins> {
   const filePath = join(pluginDir, 'origins.json');
   try {
     const content = await readFile(filePath, 'utf8');
-    const data = JSON.parse(content) as Partial<Origins>;
+    const data = JSON.parse(content) as Partial<Record<string, Record<string, unknown>>>;
     return {
-      skills: data.skills ?? {},
-      agents: data.agents ?? {},
-      commands: data.commands ?? {},
+      skills: normalizeEntries(data.skills ?? {}),
+      agents: normalizeEntries(data.agents ?? {}),
+      commands: normalizeEntries(data.commands ?? {}),
     };
   } catch {
     return { skills: {}, agents: {}, commands: {} };
@@ -36,6 +54,14 @@ export async function addOrigin(
   url: string,
 ): Promise<void> {
   const origins = await readOrigins(pluginDir);
-  origins[type][name] = url;
+  const entry: OriginEntry = { url };
+  if (url) {
+    try {
+      entry.commit = await fetchLatestCommit(url);
+    } catch {
+      // leave commit undefined if fetch fails
+    }
+  }
+  origins[type][name] = entry;
   await writeOrigins(pluginDir, origins);
 }

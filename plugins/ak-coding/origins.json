@@ -1,14 +1,30 @@
 {
   "skills": {
-    "code-review-excellence": "",
-    "e2e-testing-patterns": "",
-    "error-handling-patterns": "",
-    "fastify": "https://github.com/mcollina/skills/tree/main/skills/fastify",
-    "node": "https://github.com/mcollina/skills/tree/main/skills/node",
-    "oauth": "https://github.com/mcollina/skills/tree/main/skills/oauth",
-    "octocat": "https://github.com/mcollina/skills/tree/main/skills/octocat",
-    "react-best-practices": "https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices",
-    "react-composition-patterns": "https://github.com/vercel-labs/agent-skills/tree/main/skills/react-composition-patterns",
-    "typescript-magician": "https://github.com/mcollina/skills/tree/main/skills/typescript-magician"
-  }
+    "fastify": {
+      "url": "https://github.com/mcollina/skills/tree/main/skills/fastify",
+      "commit": "3e2ffbb90fda9e31d84011c765252b00bfc2d4d6"
+    },
+    "node": {
+      "url": "https://github.com/mcollina/skills/tree/main/skills/node",
+      "commit": "c605269f85f6e449c1f76b7c9e8c73381fccfc68"
+    },
+    "oauth": {
+      "url": "https://github.com/mcollina/skills/tree/main/skills/oauth",
+      "commit": "3e2ffbb90fda9e31d84011c765252b00bfc2d4d6"
+    },
+    "octocat": {
+      "url": "https://github.com/mcollina/skills/tree/main/skills/octocat",
+      "commit": "5b2a81354b6d10325da0db9decc9ce5ecc714138"
+    },
+    "react-best-practices": {
+      "url": "https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices",
+      "commit": "dc8367e6f91c022d83361f03c3313fa05e848ee5"
+    },
+    "typescript-magician": {
+      "url": "https://github.com/mcollina/skills/tree/main/skills/typescript-magician",
+      "commit": "3e2ffbb90fda9e31d84011c765252b00bfc2d4d6"
+    }
+  },
+  "agents": {},
+  "commands": {}
 }

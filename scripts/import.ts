@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --env-file .env
 import readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import { mkdir, writeFile } from 'node:fs/promises';
