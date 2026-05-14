@@ -24,17 +24,23 @@ claude plugin install <plugin-name> --marketplace akallabet-cc-marketplace
 
 ## Plugins
 
-### coding-external
+### ak-coding
 
-> **Disclaimer**: The `coding-external` plugin is a curated collection of skills, agents, hooks, and tools copied from various external open-source projects. The original author of this marketplace is not the author of those components. Each component's source is tracked in [`plugins/coding-external/origins.json`](./plugins/coding-external/origins.json). Please refer to the original creators for attribution, support, and contributions.
+General coding utilities (code explanation, review, refactoring, testing, debugging). Includes an MCP bundle (`.mcp.json`) wiring up context7, postgres, github, playwright, chrome-devtools, and storybook.
+
+Several of its skills are vendored from external open-source projects; attribution is tracked in [`plugins/ak-coding/origins.json`](./plugins/ak-coding/origins.json).
+
+### ak-documentation
+
+Utilities for generating and improving documentation, docstrings, README files, and API docs. Vendored-skill attribution is in [`plugins/ak-documentation/origins.json`](./plugins/ak-documentation/origins.json).
 
 ## Adding a plugin
 
-1. Create a new directory under `plugins/` with your plugin name
-2. Add a `plugin.json` manifest inside it
-3. Add your plugin components (commands, skills, hooks, agents)
-4. Register the plugin in `.claude-plugin/marketplace.json`
-5. Submit a pull request
+1. Create a new directory under `plugins/` with your plugin name.
+2. Add a `.claude-plugin/plugin.json` manifest inside it.
+3. Add your plugin components (`skills/`, `commands/`, `hooks/`, `agents/`, `.mcp.json`).
+4. Register the plugin in `.claude-plugin/marketplace.json` (`name` + `source`).
+5. Run `npm test` (`claude plugin validate .`) and submit a pull request.
 
 ## Structure
 
@@ -42,7 +48,13 @@ claude plugin install <plugin-name> --marketplace akallabet-cc-marketplace
 akallabet-cc-marketplace/
 ├── .claude-plugin/
 │   └── marketplace.json     # Marketplace manifest
-├── plugins/                 # Plugin subdirectories
+├── plugins/
+│   └── <plugin-name>/
+│       ├── .claude-plugin/
+│       │   └── plugin.json  # Plugin manifest
+│       ├── skills/
+│       ├── .mcp.json        # optional
+│       └── origins.json     # optional attribution
 ├── README.md
-└── .gitignore
+└── CLAUDE.md
 ```

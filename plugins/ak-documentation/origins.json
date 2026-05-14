@@ -1,16 +1,6 @@
 {
   "skills": {
-    "code-review-excellence": "",
     "documentation": "https://github.com/mcollina/skills/tree/main/skills/documentation",
-    "e2e-testing-patterns": "",
-    "error-handling-patterns": "",
-    "fastify": "https://github.com/mcollina/skills/tree/main/skills/fastify",
-    "init": "https://github.com/mcollina/skills/tree/main/skills/init",
-    "node": "https://github.com/mcollina/skills/tree/main/skills/node",
-    "oauth": "https://github.com/mcollina/skills/tree/main/skills/oauth",
-    "octocat": "https://github.com/mcollina/skills/tree/main/skills/octocat",
-    "react-best-practices": "https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices",
-    "react-composition-patterns": "https://github.com/vercel-labs/agent-skills/tree/main/skills/react-composition-patterns",
-    "typescript-magician": "https://github.com/mcollina/skills/tree/main/skills/octocat"
+    "init": "https://github.com/mcollina/skills/tree/main/skills/init"
   }
 }

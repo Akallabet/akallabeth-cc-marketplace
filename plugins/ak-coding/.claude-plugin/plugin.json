@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "ak-coding",
   "version": "1.0.0",
   "description": "General coding utilities for code explanation, review, refactoring, testing, and debugging",

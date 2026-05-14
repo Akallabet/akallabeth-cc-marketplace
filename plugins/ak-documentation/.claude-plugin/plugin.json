@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "ak-documentation",
   "version": "1.0.0",
   "description": "Utilities for generating and improving documentation, including docstrings, README files, and API documentation",
@@ -8,7 +9,7 @@
   },
   "keywords": [
     "development",
-    "documentation",
+    "documentation"
   ],
   "license": "MIT"
 }
