@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { fetchGitHubDir, fetchLatestCommit } from './lib/github.ts';
 import { readOrigins, addOrigin, type ComponentType } from './lib/origins.ts';
 import { listPlugins } from './lib/plugins.ts';
+import { scanFiles, formatScanResults } from './lib/prompt-injection.ts';
+import { writeReport, type Report, type ReportEntry } from './lib/report.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = join(dirname(__filename), '..');
@@ -19,6 +21,7 @@ async function main(): Promise<void> {
   let upToDate = 0;
   let skipped = 0;
   let errors = 0;
+  const reportEntries: ReportEntry[] = [];
 
   for (const plugin of plugins) {
     const origins = await readOrigins(plugin.dir);
@@ -44,6 +47,24 @@ async function main(): Promise<void> {
           const files = await fetchGitHubDir(entry.url);
           const destDir = join(plugin.dir, type, name);
 
+          const scanResults = scanFiles(files);
+          reportEntries.push({
+            source: 'update',
+            plugin: plugin.name,
+            type,
+            name,
+            url: entry.url,
+            status: scanResults.length > 0 ? 'blocked' : 'clean',
+            scannedFiles: files.length,
+            findings: scanResults,
+          });
+          if (scanResults.length > 0) {
+            console.log(`BLOCKED (prompt injection)`);
+            console.error(formatScanResults(`${plugin.name}/${type}/${name}`, scanResults));
+            errors++;
+            continue;
+          }
+
           for (const file of files) {
             const dest = join(destDir, file.relativePath);
             await mkdir(dirname(dest), { recursive: true });
@@ -61,9 +82,15 @@ async function main(): Promise<void> {
     }
   }
 
+  const report: Report = {
+    generatedAt: new Date().toISOString(),
+    entries: reportEntries,
+  };
+  const reportPath = await writeReport(report);
   console.log(
     `\nSummary: ${updated} updated, ${upToDate} up to date, ${skipped} skipped (no URL), ${errors} error(s)`,
   );
+  console.log(`Prompt injection report: ${reportPath}`);
   if (errors > 0) process.exit(1);
 }
 

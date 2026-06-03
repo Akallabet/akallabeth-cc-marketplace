@@ -2,7 +2,7 @@ name: Update Plugins
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -17,18 +17,26 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: "24"
 
       - name: Update plugins
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx plugin-update
 
+      - name: Upload prompt injection report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: prompt-injection-report
+          path: reports/prompt-injection.json
+          if-no-files-found: warn
+
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: 'chore: daily plugin upstream sync'
-          title: 'chore: daily plugin upstream sync'
+          commit-message: "chore: daily plugin upstream sync"
+          title: "chore: daily plugin upstream sync"
           body: |
             Automated daily refresh of upstream skills, agents, and commands via `npx plugin-update`.
           branch: chore/daily-plugin-update

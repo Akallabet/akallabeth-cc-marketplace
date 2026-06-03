@@ -8,6 +8,8 @@ import { parseArgs } from 'node:util';
 import { parseGitHubUrl, fetchGitHubDir } from './lib/github.ts';
 import { addOrigin, type ComponentType } from './lib/origins.ts';
 import { listPlugins, type Plugin } from './lib/plugins.ts';
+import { scanFiles, formatScanResults } from './lib/prompt-injection.ts';
+import { writeReport, type Report } from './lib/report.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = join(dirname(__filename), '..');
@@ -153,8 +155,31 @@ async function main(): Promise<void> {
 
     console.log('\nFetching from GitHub...');
     const files = await fetchGitHubDir(url);
-    console.log(`  Downloaded ${files.length} file(s). Writing...`);
+    console.log(`  Downloaded ${files.length} file(s). Scanning for prompt injection...`);
 
+    const scanResults = scanFiles(files);
+    const report: Report = {
+      generatedAt: new Date().toISOString(),
+      entries: [
+        {
+          source: 'import',
+          plugin: plugin.name,
+          type: componentType,
+          name,
+          url,
+          status: scanResults.length > 0 ? 'blocked' : 'clean',
+          scannedFiles: files.length,
+          findings: scanResults,
+        },
+      ],
+    };
+    const reportPath = await writeReport(report);
+    console.log(`  Report written to ${reportPath}`);
+    if (scanResults.length > 0) {
+      throw new Error(formatScanResults(`${plugin.name}/${componentType}/${name}`, scanResults));
+    }
+
+    console.log(`  Scan clean. Writing...`);
     for (const file of files) {
       const dest = join(destDir, file.relativePath);
       await mkdir(dirname(dest), { recursive: true });
