@@ -23,6 +23,14 @@
     "typescript-magician": {
       "url": "https://github.com/mcollina/skills/tree/main/skills/typescript-magician",
       "commit": "3e2ffbb90fda9e31d84011c765252b00bfc2d4d6"
+    },
+    "kafka": {
+      "url": "https://github.com/platformatic/skills/tree/main/skills/kafka",
+      "commit": "35758b28781ce4ffc93384afec465f88004b3f4a"
+    },
+    "watt": {
+      "url": "https://github.com/platformatic/skills/tree/main/skills/watt",
+      "commit": "51e7d4283cd14809faa6cf92c288f792ece5bc39"
     }
   },
   "agents": {},

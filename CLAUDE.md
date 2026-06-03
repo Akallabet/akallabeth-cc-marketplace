@@ -25,7 +25,7 @@ A Claude Code plugin marketplace — a GitHub-hosted registry where plugins are 
 | `npm test` | `node --test` | Run unit tests for the sync scripts |
 | `npm run test:watch` | `node --test --watch` | Watch mode for unit tests |
 | `npm run validate` | `claude plugin validate .` | Validate all plugin manifests |
-| `npx plugin-import` | `scripts/import.ts` | Interactive CLI to import a skill/agent/command from a GitHub repo |
+| `npx plugin-import` | `scripts/import.ts` | Import a skill/agent/command from a GitHub repo (interactive, or non-interactive with `--type`/`--url`/`--plugin`/`--yes`) |
 | `npx plugin-update` | `scripts/update.ts` | Re-fetch all upstream components tracked in each plugin's `origins.json` |
 
 ## Sync Scripts (`scripts/`)
