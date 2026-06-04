@@ -17,6 +17,7 @@ A Claude Code plugin marketplace — a GitHub-hosted registry where plugins are 
 1. Create `plugins/<plugin-name>/.claude-plugin/plugin.json` with the plugin manifest.
 2. Add plugin components (`skills/`, `commands/`, `hooks/`, `agents/`, `.mcp.json`) under `plugins/<plugin-name>/`.
 3. Register the plugin in `.claude-plugin/marketplace.json` by appending `{ "name": "<plugin-name>", "source": "./plugins/<plugin-name>" }` to the `plugins` array.
+4. Bump the version in `plugins/<plugin-name>/.claude-plugin/plugin.json` and commit all changes.
 
 ## npm Scripts
 
