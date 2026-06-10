@@ -16,6 +16,10 @@
     {
       "name": "ak-documentation",
       "source": "./plugins/ak-documentation"
+    },
+    {
+      "name": "ak-engineering",
+      "source": "./plugins/ak-engineering"
     }
   ]
 }

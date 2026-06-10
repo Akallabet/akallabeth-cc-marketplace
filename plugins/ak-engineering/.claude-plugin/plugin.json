@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "ak-engineering",
+  "version": "1.0.0",
+  "description": "Engineering skills for architecture, TDD, prototyping, triage, and software design",
+  "author": {
+    "name": "Graziano Statello",
+    "email": "admin@grazianostatello.dev"
+  },
+  "keywords": [
+    "engineering",
+    "architecture",
+    "tdd",
+    "prototyping",
+    "triage",
+    "design"
+  ],
+  "license": "MIT"
+}
