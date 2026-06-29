@@ -26,7 +26,7 @@
     },
     "kafka": {
       "url": "https://github.com/platformatic/skills/tree/main/skills/kafka",
-      "commit": "35758b28781ce4ffc93384afec465f88004b3f4a"
+      "commit": "d7420f61f0b3fc2ab8c10aeb086a0067b02a9072"
     },
     "watt": {
       "url": "https://github.com/platformatic/skills/tree/main/skills/watt",
