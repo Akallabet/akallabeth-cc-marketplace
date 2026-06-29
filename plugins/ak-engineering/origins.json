@@ -1,8 +1,60 @@
 {
   "skills": {
-    "engineering": {
-      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering",
+    "ask-matt": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/ask-matt",
+      "commit": "460f19f240ea3677dc6ac7a5dba9c8050e0b7bfc"
+    },
+    "codebase-design": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/codebase-design",
+      "commit": "ee8bae40062cd6b435073368ed0c540f48c35862"
+    },
+    "diagnosing-bugs": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/diagnosing-bugs",
+      "commit": "ee8bae40062cd6b435073368ed0c540f48c35862"
+    },
+    "domain-modeling": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/domain-modeling",
+      "commit": "ee8bae40062cd6b435073368ed0c540f48c35862"
+    },
+    "grill-with-docs": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/grill-with-docs",
+      "commit": "658d53e6ded8cc0eaa26a96e0580bee9381ca0e3"
+    },
+    "implement": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/implement",
+      "commit": "ffb2fa662321045a8ace6f56f29ef8af11e19d3d"
+    },
+    "improve-codebase-architecture": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/improve-codebase-architecture",
+      "commit": "221ffca96736afefdc08ca7cf0b3965e9ea83f41"
+    },
+    "prototype": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/prototype",
+      "commit": "221ffca96736afefdc08ca7cf0b3965e9ea83f41"
+    },
+    "resolving-merge-conflicts": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/resolving-merge-conflicts",
+      "commit": "81ddacb08b3878d07ac4fa2de60bd8a53bacba5b"
+    },
+    "setup-matt-pocock-skills": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/setup-matt-pocock-skills",
       "commit": "e00eadb4bb32c3d5a631ead1a5ed5d6a7c5f74e2"
+    },
+    "to-issues": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/to-issues",
+      "commit": "788b5c382b769155afcbac0d8402c3b56eae02fd"
+    },
+    "to-prd": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/to-prd",
+      "commit": "3832253f149ea165f45a32ea727886e6d0094d60"
+    },
+    "triage": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/triage",
+      "commit": "e00eadb4bb32c3d5a631ead1a5ed5d6a7c5f74e2"
+    },
+    "tdd": {
+      "url": "https://github.com/Akallabet/skills/tree/main/skills/engineering/tdd",
+      "commit": "ee8bae40062cd6b435073368ed0c540f48c35862"
     }
   },
   "agents": {},
